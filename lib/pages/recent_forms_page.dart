@@ -30,20 +30,30 @@ class _RecentFormsPageState extends State<RecentFormsPage> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              child: Container(
-                margin: const EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: const Color.fromARGB(255, 232, 255, 255),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Column(
-                      children: [const Text("Recent forms")],
-                    ),
-                  ),
+              child: Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
+                  children: [
+                    const Text("Recent forms"),
+                    Row(children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 7,
+                        height: MediaQuery.of(context).size.height / 7,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: const [
+                            Text('Form 1'),
+                            Text('5 fields'),
+                            Text('1939/8/1')
+                          ],
+                        ),
+                      )
+                    ])
+                  ],
                 ),
               ),
             ),
