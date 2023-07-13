@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:form_generator/database/models/form_element.dart';
+import 'package:form_generator/database/models/form_element_type.dart';
 import 'package:form_generator/pages/recent_forms_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   await Hive.initFlutter();
+  Hive.registerAdapter(FormElementAdapter());
+  Hive.registerAdapter(FormElementTypeAdapter());
   runApp(const FormGeneratorApp());
 }
 
