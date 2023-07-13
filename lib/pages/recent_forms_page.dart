@@ -46,7 +46,7 @@ class _RecentFormsPageState extends State<RecentFormsPage> {
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black),
                             borderRadius: BorderRadius.circular(8)),
-                        child: const Column(
+                        child:  Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
