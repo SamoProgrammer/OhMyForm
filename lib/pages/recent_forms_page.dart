@@ -13,18 +13,22 @@ class _RecentFormsPageState extends State<RecentFormsPage> {
     return Scaffold(
       body: Column(
         children: [
-          Container(
+          SizedBox(
+            height: MediaQuery.of(context).size.height / 7,
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 6,
-            color: Colors.white,
-            child: Padding(
-              padding: const EdgeInsets.all(7),
-              child: TextButton(
-                onPressed: () {},
-                style: TextButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15))),
-                child: const Text("Create Form"),
+            child: Align(
+              alignment: FractionalOffset.centerRight,
+              child: Row(
+                children: [
+                  TextButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                        padding: EdgeInsets.all(15),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15))),
+                    child: const Text("Create Form"),
+                  ),
+                ],
               ),
             ),
           ),
@@ -42,10 +46,10 @@ class _RecentFormsPageState extends State<RecentFormsPage> {
                         decoration: BoxDecoration(
                             border: Border.all(color: Colors.black),
                             borderRadius: BorderRadius.circular(8)),
-                        child: Column(
+                        child: const Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text('Form 1'),
                             Text('5 fields'),
                             Text('1939/8/1')
