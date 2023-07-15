@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:form_generator/database/models/form_element_type.dart';
 
 class SelectFieldWidget extends StatefulWidget {
-  const SelectFieldWidget({super.key});
+  final FormElementType elementType;
+  final String elementTypeName;
+  final IconData elementTypeIcon;
+  const SelectFieldWidget(
+      {super.key,
+      required this.elementType,
+      required this.elementTypeName,
+      required this.elementTypeIcon});
 
   @override
   State<SelectFieldWidget> createState() => _SelectFieldWidgetState();
@@ -10,16 +18,38 @@ class SelectFieldWidget extends StatefulWidget {
 class _SelectFieldWidgetState extends State<SelectFieldWidget> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          border: Border.all(color: Colors.black, width: 0.5),
-          borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Text('Type of field'),
-          TextButton(onPressed: () {}, child: Text('add'))
-        ],
+    return LayoutBuilder(
+      builder: (context, constraints) => Container(
+        // margin: const EdgeInsets.symmetric(vertical: 10),
+        width: constraints.maxWidth * 0.35,
+        height: MediaQuery.of(context).size.height / 6,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black, width: 0.5),
+            borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text(
+              widget.elementTypeName,
+              style: const TextStyle(fontSize: 18),
+            ),
+            Icon(widget.elementTypeIcon),
+            TextButton(
+              onPressed: () {},
+              style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      side: const BorderSide(color: Colors.transparent),
+                      borderRadius: BorderRadius.circular(7)),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                  backgroundColor: Colors.lightBlue[600]),
+              child: const Text(
+                'افزودن',
+                style: TextStyle(color: Colors.white),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
