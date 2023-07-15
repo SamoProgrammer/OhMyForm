@@ -8,7 +8,7 @@ enum FormElementType {
   @HiveField(1)
   shortText,
   @HiveField(2)
-  longText,
+  multiLineText,
   @HiveField(3)
   multiChoice
 }

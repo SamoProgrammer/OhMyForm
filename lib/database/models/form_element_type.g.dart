@@ -18,7 +18,7 @@ class FormElementTypeAdapter extends TypeAdapter<FormElementType> {
       case 1:
         return FormElementType.shortText;
       case 2:
-        return FormElementType.longText;
+        return FormElementType.multiLineText;
       case 3:
         return FormElementType.multiChoice;
       default:
@@ -35,7 +35,7 @@ class FormElementTypeAdapter extends TypeAdapter<FormElementType> {
       case FormElementType.shortText:
         writer.writeByte(1);
         break;
-      case FormElementType.longText:
+      case FormElementType.multiLineText:
         writer.writeByte(2);
         break;
       case FormElementType.multiChoice:
