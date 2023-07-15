@@ -23,10 +23,10 @@ class _RecentFormsPageState extends State<RecentFormsPage> {
                   TextButton(
                     onPressed: () {},
                     style: TextButton.styleFrom(
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15))),
-                    child: const Text("Create Form"),
+                    child: const Text("ایجاد فرم"),
                   ),
                 ],
               ),
@@ -38,7 +38,7 @@ class _RecentFormsPageState extends State<RecentFormsPage> {
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
-                    const Text("Recent forms"),
+                    const Text("فرم های اخیر"),
                     Row(children: [
                       Container(
                         width: MediaQuery.of(context).size.width / 7,
@@ -49,10 +49,10 @@ class _RecentFormsPageState extends State<RecentFormsPage> {
                         child:  Column(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text('Form 1'),
-                            Text('5 fields'),
-                            Text('1939/8/1')
+                          children: const [
+                            Text('فرم ثبت نام'),
+                            Text('۵ فیلد'),
+                            Text('۱۴۰۲/۱۰/۱۲')
                           ],
                         ),
                       )
