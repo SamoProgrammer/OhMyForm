@@ -18,7 +18,7 @@ class FormElementAdapter extends TypeAdapter<FormElement> {
     };
     return FormElement(
       label: fields[0] as String,
-      type: fields[1] as Type,
+      type: fields[1] as FormElementType,
     );
   }
 
