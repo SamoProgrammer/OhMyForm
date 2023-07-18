@@ -19,17 +19,19 @@ class FormElementAdapter extends TypeAdapter<FormElement> {
     return FormElement(
       label: fields[0] as String,
       type: fields[1] as FormElementType,
-    );
+    )..options = (fields[2] as List?)?.cast<String>();
   }
 
   @override
   void write(BinaryWriter writer, FormElement obj) {
     writer
-      ..writeByte(2)
+      ..writeByte(3)
       ..writeByte(0)
       ..write(obj.label)
       ..writeByte(1)
-      ..write(obj.type);
+      ..write(obj.type)
+      ..writeByte(2)
+      ..write(obj.options);
   }
 
   @override

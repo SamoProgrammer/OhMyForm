@@ -11,7 +11,8 @@ class FormElement extends HiveObject {
   @HiveField(1)
   late FormElementType type;
 
+  @HiveField(2)
+  List<String>? options;
+
   FormElement({required this.label, required this.type});
 }
-
-
