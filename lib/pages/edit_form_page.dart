@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:form_generator/database/models/form_element.dart';
 import 'package:form_generator/database/models/form_element_type.dart';
+import 'package:form_generator/widgets/form_element_widget.dart';
+import 'package:form_generator/widgets/save_button_widget.dart';
 import 'package:form_generator/widgets/select_field_widget.dart';
 
 class EditFormPage extends StatefulWidget {
@@ -11,24 +14,45 @@ class EditFormPage extends StatefulWidget {
 }
 
 class _EditFormPageState extends State<EditFormPage> {
-  final List<SelectFieldWidget> selectFieldWidgets = <SelectFieldWidget>[
-    const SelectFieldWidget(
+  final List<SelectFieldWidget> selectFieldWidgets = <SelectFieldWidget>[];
+  final List<FormElement> formElements = <FormElement>[];
+  void _addWidget(FormElement element) {
+    setState(() {
+      formElements.add(element);
+    });
+  }
+
+  @override
+  void initState() {
+    selectFieldWidgets.addAll([
+      SelectFieldWidget(
         elementType: FormElementType.description,
         elementTypeIcon: FontAwesomeIcons.info,
-        elementTypeName: 'توضیحات'),
-    const SelectFieldWidget(
+        elementTypeName: 'توضیحات',
+        onAdd: _addWidget,
+      ),
+      SelectFieldWidget(
         elementType: FormElementType.multiChoice,
         elementTypeIcon: FontAwesomeIcons.listCheck,
-        elementTypeName: 'چند گزینه ای'),
-    const SelectFieldWidget(
+        elementTypeName: 'چند گزینه ای',
+        onAdd: _addWidget,
+      ),
+      SelectFieldWidget(
         elementType: FormElementType.shortText,
         elementTypeIcon: Icons.short_text,
-        elementTypeName: 'متن کوتاه'),
-    const SelectFieldWidget(
+        elementTypeName: 'متن کوتاه',
+        onAdd: _addWidget,
+      ),
+      SelectFieldWidget(
         elementType: FormElementType.multiLineText,
         elementTypeIcon: Icons.text_increase,
-        elementTypeName: 'متن بلند'),
-  ];
+        elementTypeName: 'متن بلند',
+        onAdd: _addWidget,
+      ),
+    ]);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,23 +86,49 @@ class _EditFormPageState extends State<EditFormPage> {
                   padding: EdgeInsets.only(bottom: 10),
                 ),
                 Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 7),
-                    child: GridView.count(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 10,
-                      crossAxisSpacing: 10,
-                      children: selectFieldWidgets,
-                    ),
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 7),
+                        child: LayoutBuilder(
+                          builder: (c, bc) => SizedBox(
+                            height: bc.maxHeight,
+                            width: bc.maxWidth,
+                            child: GridView.count(
+                              crossAxisCount: 2,
+                              mainAxisSpacing: 10,
+                              crossAxisSpacing: 10,
+                              children: selectFieldWidgets,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: SaveButtonWidget(
+                                text: "ذخیره", onPressed: () {}),
+                          )
+                        ],
+                      )
+                    ],
                   ),
                 ),
               ],
             ),
           )),
-          SizedBox(
+          SingleChildScrollView(
+            child: SizedBox(
               width: MediaQuery.of(context).size.width * 0.75,
               height: MediaQuery.of(context).size.height,
-              child: Column()),
+              child: ListView.builder(
+                  itemCount: formElements.length,
+                  itemBuilder: (context, index) {
+                    return FormElementWidget(element: formElements[index]);
+                  }),
+            ),
+          ),
         ],
       ),
     );
