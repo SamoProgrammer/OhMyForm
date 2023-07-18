@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:form_generator/database/models/form_element.dart';
 import 'package:form_generator/database/models/form_element_type.dart';
 
 class SelectFieldWidget extends StatefulWidget {
   final FormElementType elementType;
   final String elementTypeName;
   final IconData elementTypeIcon;
+  final void Function(FormElement) onAdd;
   const SelectFieldWidget(
       {super.key,
       required this.elementType,
       required this.elementTypeName,
-      required this.elementTypeIcon});
+      required this.elementTypeIcon,
+      required this.onAdd});
 
   @override
   State<SelectFieldWidget> createState() => _SelectFieldWidgetState();
@@ -35,7 +38,12 @@ class _SelectFieldWidgetState extends State<SelectFieldWidget> {
             ),
             Icon(widget.elementTypeIcon),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                setState(() {
+                  widget
+                      .onAdd(FormElement(label: "", type: widget.elementType));
+                });
+              },
               style: TextButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       side: const BorderSide(color: Colors.transparent),
