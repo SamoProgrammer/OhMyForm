@@ -15,18 +15,19 @@ class _FormElementWidgetState extends State<FormElementWidget> {
   Widget build(BuildContext context) {
     late Widget formElementWidget;
     if (widget.element.type == FormElementType.description) {
-      formElementWidget = TextFormField(
-        decoration: InputDecoration(labelText: widget.element.label),
+      formElementWidget = Text(
+        widget.element.label,
+        style: const TextStyle(fontSize: 18),
       );
     } else if (widget.element.type == FormElementType.shortText) {
       formElementWidget = TextFormField(
         decoration: InputDecoration(labelText: widget.element.label),
-        keyboardType: TextInputType.emailAddress,
+        
       );
     } else if (widget.element.type == FormElementType.multiLineText) {
       formElementWidget = TextFormField(
         decoration: InputDecoration(labelText: widget.element.label),
-        keyboardType: TextInputType.phone,
+        
       );
     } else if (widget.element.type == FormElementType.multiChoice) {
       formElementWidget = TextFormField(
@@ -34,6 +35,9 @@ class _FormElementWidgetState extends State<FormElementWidget> {
         keyboardType: TextInputType.phone,
       );
     }
-    return formElementWidget;
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: formElementWidget,
+    );
   }
 }
