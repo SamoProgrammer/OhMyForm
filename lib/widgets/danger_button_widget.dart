@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
 
-class SaveButtonWidget extends StatefulWidget {
+class DangerButtonWidget extends StatefulWidget {
   final String text;
   final void Function() onPressed;
 
-  const SaveButtonWidget(
+  const DangerButtonWidget(
       {super.key, required this.text, required this.onPressed});
 
   @override
-  State<SaveButtonWidget> createState() => _SaveButtonWidgetState();
+  State<DangerButtonWidget> createState() => _DangerButtonWidgetState();
 }
 
-class _SaveButtonWidgetState extends State<SaveButtonWidget> {
+class _DangerButtonWidgetState extends State<DangerButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: widget.onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor:
-            Colors.yellow[700], // Set the background color to yellow
-        foregroundColor: Colors.black, // Set the text color to black
+            Colors.red[700], // Set the background color to yellow
+        foregroundColor: Colors.white, // Set the text color to black
         minimumSize: const Size(40, 32), // Set the minimum size of the button
         padding: const EdgeInsets.symmetric(
-            horizontal: 16), // Add horizontal padding
+            horizontal: 24, vertical: 15), // Add horizontal padding
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4), // Apply border radius
-          side: BorderSide(color: Colors.yellow[700]!), // Add border color
+          side: BorderSide(
+              color: Colors.red[800]!, width: 0.5), // Add border color
         ),
       ),
       child: Text(
