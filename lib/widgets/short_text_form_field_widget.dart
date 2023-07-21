@@ -5,17 +5,28 @@ class ShortTextFormFieldWidget extends StatefulWidget {
   const ShortTextFormFieldWidget({super.key, required this.lable});
 
   @override
-  State<ShortTextFormFieldWidget> createState() => _ShortTextFormFieldWidgetState();
+  State<ShortTextFormFieldWidget> createState() =>
+      _ShortTextFormFieldWidgetState();
 }
 
 class _ShortTextFormFieldWidgetState extends State<ShortTextFormFieldWidget> {
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-          labelText: widget.lable,
-          border: const OutlineInputBorder(
-              borderSide: BorderSide(color: Colors.black, width: 0.5))),
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerRight,
+          child: Text(
+            widget.lable,
+            style: const TextStyle(fontSize: 18),
+          ),
+        ),
+        TextFormField(
+          decoration: const InputDecoration(
+              border: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black, width: 0.5))),
+        ),
+      ],
     );
   }
 }
