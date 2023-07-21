@@ -3,7 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_generator/database/models/form_element.dart';
 import 'package:form_generator/database/models/form_element_type.dart';
 import 'package:form_generator/widgets/form_element_widget.dart';
-import 'package:form_generator/widgets/save_button_widget.dart';
+import 'package:form_generator/widgets/info_button_widget.dart';
+import 'package:form_generator/widgets/warning_button_widget.dart';
 import 'package:form_generator/widgets/select_field_widget.dart';
 
 class EditFormPage extends StatefulWidget {
@@ -86,35 +87,36 @@ class _EditFormPageState extends State<EditFormPage> {
                   padding: EdgeInsets.only(bottom: 10),
                 ),
                 Expanded(
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 7),
-                        child: LayoutBuilder(
-                          builder: (c, bc) => SizedBox(
-                            height: bc.maxHeight,
-                            width: bc.maxWidth,
-                            child: GridView.count(
-                              crossAxisCount: 2,
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              children: selectFieldWidgets,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Row(
+                  child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 7),
+                      child: GridView.count(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 10,
+                        crossAxisSpacing: 10,
+                        children: selectFieldWidgets,
+                      )),
+                ),
+                LayoutBuilder(
+                  builder: (c, bc) => SizedBox(
+                    height: MediaQuery.of(context).size.height / 10,
+                    width: bc.maxWidth,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                          border: Border(top: BorderSide(color: Colors.black)),
+                          color: Color.fromARGB(255, 165, 207, 246)),
+                      child: Row(
                         children: [
                           Padding(
                             padding: const EdgeInsets.all(5),
-                            child: SaveButtonWidget(
+                            child: WarningButtonWidget(
                                 text: "ذخیره", onPressed: () {}),
-                          )
+                          ),
+                          InfoButtonWidget(text: "بازگشت", onPressed: () {})
                         ],
-                      )
-                    ],
+                      ),
+                    ),
                   ),
-                ),
+                )
               ],
             ),
           )),
