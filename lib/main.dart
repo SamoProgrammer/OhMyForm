@@ -7,8 +7,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   await Hive.initFlutter();
-  Hive.registerAdapter(FormElementAdapter());
   Hive.registerAdapter(FormElementTypeAdapter());
+  Hive.registerAdapter(FormElementAdapter());
   runApp(const FormGeneratorApp());
 }
 
