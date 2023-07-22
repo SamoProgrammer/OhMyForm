@@ -3,6 +3,7 @@ import 'package:form_generator/database/models/form_element.dart';
 import 'package:form_generator/database/models/form_element_type.dart';
 import 'package:form_generator/widgets/danger_button_widget.dart';
 import 'package:form_generator/widgets/info_button_widget.dart';
+import 'package:form_generator/widgets/long_text_form_field_widget.dart';
 import 'package:form_generator/widgets/short_text_form_field_widget.dart';
 
 class FormElementWidget extends StatefulWidget {
@@ -25,9 +26,7 @@ class _FormElementWidgetState extends State<FormElementWidget> {
     } else if (widget.element.type == FormElementType.shortText) {
       formElementWidget = const ShortTextFormFieldWidget(lable: "متن کوتاه");
     } else if (widget.element.type == FormElementType.multiLineText) {
-      formElementWidget = TextFormField(
-        decoration: InputDecoration(labelText: widget.element.label),
-      );
+      formElementWidget = const LongTextFormFieldWidget(lable: "متن بلند");
     } else if (widget.element.type == FormElementType.multiChoice) {
       formElementWidget = TextFormField(
         decoration: InputDecoration(labelText: widget.element.label),
