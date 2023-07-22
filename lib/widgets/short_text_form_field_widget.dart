@@ -22,6 +22,7 @@ class _ShortTextFormFieldWidgetState extends State<ShortTextFormFieldWidget> {
           ),
         ),
         TextFormField(
+          maxLength: 25,
           decoration: const InputDecoration(
               border: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.black, width: 0.5))),
