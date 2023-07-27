@@ -6,13 +6,20 @@ part 'form_element.g.dart';
 @HiveType(typeId: 1)
 class FormElement extends HiveObject {
   @HiveField(0)
-  late String label;
+  String label;
 
   @HiveField(1)
-  late FormElementType type;
+  FormElementType type;
 
   @HiveField(2)
   List<String>? options;
 
-  FormElement({required this.label, required this.type});
+  @HiveField(3)
+  String? value;
+
+  FormElement(
+      {required this.label,
+      required this.type,
+      this.value,
+      this.options,});
 }
