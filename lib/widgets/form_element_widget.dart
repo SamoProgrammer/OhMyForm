@@ -27,12 +27,12 @@ class _FormElementWidgetState extends State<FormElementWidget> {
       formElementWidget = const ShortTextFormFieldWidget(lable: "متن کوتاه");
     } else if (widget.element.type == FormElementType.multiLineText) {
       formElementWidget = const LongTextFormFieldWidget(lable: "متن بلند");
-    } else if (widget.element.type == FormElementType.multiChoice) {
+    } else if (widget.element.type == FormElementType.radioButton) {
       formElementWidget = TextFormField(
         decoration: InputDecoration(labelText: widget.element.label),
         keyboardType: TextInputType.phone,
       );
-    }
+    } else if (widget.element.type == FormElementType.checkBox) {}
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Column(
