@@ -33,7 +33,7 @@ class _EditFormPageState extends State<EditFormPage> {
         onAdd: _addWidget,
       ),
       SelectFieldWidget(
-        elementType: FormElementType.multiChoice,
+        elementType: FormElementType.radioButton,
         elementTypeIcon: FontAwesomeIcons.listCheck,
         elementTypeName: 'چند گزینه ای',
         onAdd: _addWidget,
