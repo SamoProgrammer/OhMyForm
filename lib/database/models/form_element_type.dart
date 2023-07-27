@@ -10,5 +10,7 @@ enum FormElementType {
   @HiveField(2)
   multiLineText,
   @HiveField(3)
-  multiChoice
+  radioButton,
+  @HiveField(4)
+  checkBox
 }

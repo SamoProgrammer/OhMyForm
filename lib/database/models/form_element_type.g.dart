@@ -20,7 +20,9 @@ class FormElementTypeAdapter extends TypeAdapter<FormElementType> {
       case 2:
         return FormElementType.multiLineText;
       case 3:
-        return FormElementType.multiChoice;
+        return FormElementType.radioButton;
+      case 4:
+        return FormElementType.checkBox;
       default:
         return FormElementType.description;
     }
@@ -38,8 +40,11 @@ class FormElementTypeAdapter extends TypeAdapter<FormElementType> {
       case FormElementType.multiLineText:
         writer.writeByte(2);
         break;
-      case FormElementType.multiChoice:
+      case FormElementType.radioButton:
         writer.writeByte(3);
+        break;
+      case FormElementType.checkBox:
+        writer.writeByte(4);
         break;
     }
   }
