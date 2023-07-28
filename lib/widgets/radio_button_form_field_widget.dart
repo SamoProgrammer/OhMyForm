@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:form_generator/database/models/form_element.dart';
 
 class RadioButtonFormFieldWidget extends StatefulWidget {
-  final List<String> options;
-  final String lable;
-  int? value;
-  RadioButtonFormFieldWidget({
-    super.key,
-    required this.options,
-    required this.lable,
-  });
+  final FormElement element;
+  const RadioButtonFormFieldWidget({super.key, required this.element});
 
   @override
   State<RadioButtonFormFieldWidget> createState() =>
@@ -24,21 +19,21 @@ class _RadioButtonFormFieldWidgetState
     return Column(
       children: [
         Text(
-          widget.lable,
+          widget.element.label,
           style: const TextStyle(fontSize: 16),
         ),
         GridView.builder(
           gridDelegate: delegate,
           padding: const EdgeInsets.all(0),
-          itemCount: widget.options.length,
+          itemCount: widget.element.options!.length,
           itemBuilder: (context, index) {
             return RadioListTile(
-              groupValue: widget.value,
-              title: Text(widget.options[index]),
-              value: index,
+              groupValue: widget.element.value,
+              title: Text(widget.element.options![index]),
+              value: widget.element.options![index],
               onChanged: (newIndex) {
                 setState(() {
-                  widget.value = newIndex;
+                  widget.element.value = newIndex;
                 });
               },
             );
