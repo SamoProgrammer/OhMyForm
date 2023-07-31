@@ -20,8 +20,7 @@ class FormElementAdapter extends TypeAdapter<FormElement> {
       label: fields[0] as String,
       type: fields[1] as FormElementType,
       value: fields[3] as String?,
-      options: (fields[2] as List?)?.cast<String>(),
-    );
+    )..options = (fields[2] as List).cast<String>();
   }
 
   @override

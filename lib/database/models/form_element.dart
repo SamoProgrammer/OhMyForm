@@ -12,7 +12,7 @@ class FormElement extends HiveObject {
   FormElementType type;
 
   @HiveField(2)
-  List<String>? options = [];
+  List<String> options = [];
 
   @HiveField(3)
   String? value;
@@ -21,6 +21,5 @@ class FormElement extends HiveObject {
     required this.label,
     required this.type,
     this.value,
-    this.options,
   });
 }
