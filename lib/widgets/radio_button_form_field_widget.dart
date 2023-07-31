@@ -17,28 +17,30 @@ class _RadioButtonFormFieldWidgetState
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Text(
           widget.element.label,
           style: const TextStyle(fontSize: 16),
         ),
-        GridView.builder(
-          gridDelegate: delegate,
-          padding: const EdgeInsets.all(0),
-          itemCount: widget.element.options!.length,
-          itemBuilder: (context, index) {
-            return RadioListTile(
-              groupValue: widget.element.value,
-              title: Text(widget.element.options![index]),
-              value: widget.element.options![index],
-              onChanged: (newIndex) {
-                setState(() {
-                  widget.element.value = newIndex;
-                });
-              },
-            );
-          },
-        )
+        if (widget.element.options.isNotEmpty)
+          GridView.builder(
+            gridDelegate: delegate,
+            padding: const EdgeInsets.all(0),
+            itemCount: widget.element.options.length,
+            itemBuilder: (context, index) {
+              return RadioListTile(
+                groupValue: widget.element.value,
+                title: Text(widget.element.options[index]),
+                value: widget.element.options[index],
+                onChanged: (newIndex) {
+                  setState(() {
+                    widget.element.value = newIndex;
+                  });
+                },
+              );
+            },
+          )
       ],
     );
   }
