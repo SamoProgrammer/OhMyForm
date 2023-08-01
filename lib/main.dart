@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:form_generator/database/models/form_element.dart';
-import 'package:form_generator/database/models/form_element_type.dart';
+import 'package:form_generator/models/form_element.dart';
+import 'package:form_generator/models/form_element_type.dart';
 import 'package:form_generator/pages/edit_form_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 

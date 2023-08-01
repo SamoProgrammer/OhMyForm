@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:form_generator/database/models/form_element.dart';
-import 'package:form_generator/database/models/form_element_type.dart';
+import 'package:form_generator/models/form_element.dart';
+import 'package:form_generator/models/form_element_type.dart';
 import 'package:form_generator/widgets/danger_button_widget.dart';
 import 'package:form_generator/widgets/form_field_edit_dialog_widget.dart';
 import 'package:form_generator/widgets/info_button_widget.dart';

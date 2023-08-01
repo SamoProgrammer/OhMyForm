@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:form_generator/database/models/form_element.dart';
-import 'package:form_generator/database/models/form_element_type.dart';
+import 'package:form_generator/models/form_element.dart';
+import 'package:form_generator/models/form_element_type.dart';
 import 'package:form_generator/widgets/form_element_widget.dart';
 import 'package:form_generator/widgets/info_button_widget.dart';
 import 'package:form_generator/widgets/warning_button_widget.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:form_generator/database/models/form_element.dart';
-import 'package:form_generator/database/models/form_element_type.dart';
+import 'package:form_generator/models/form_element.dart';
+import 'package:form_generator/models/form_element_type.dart';
 
 class SelectFieldWidget extends StatefulWidget {
   final FormElementType elementType;
