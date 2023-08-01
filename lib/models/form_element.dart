@@ -1,4 +1,4 @@
-import 'package:form_generator/database/models/form_element_type.dart';
+import 'package:form_generator/models/form_element_type.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 part 'form_element.g.dart';
