@@ -1,20 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:form_generator/models/form.dart';
+import 'package:form_generator/models/form_model.dart';
 
-class FormApiProvider {
+class FormModelApiService {
   final Dio _dio = Dio();
 
-  // Replace with your API base URL
-  final String _baseUrl = 'https://example.com/api';
+  // Replace with your API URL
+  final String _baseUrl = 'http://localhost:5202/api/Form';
 
   // Method to fetch all forms
-  Future<List<Form>> getForms() async {
+  Future<List<FormModel>>? getFormModels() async {
     try {
-      final response = await _dio.get('$_baseUrl/Form');
+      final response = await _dio.get(_baseUrl);
 
       if (response.statusCode == 200) {
         final List<dynamic> data = response.data;
-        return data.map((json) => Form.fromJson(json)).toList();
+        return data.map((json) => FormModel.fromJson(json)).toList();
       } else {
         throw Exception('Failed to fetch forms');
       }
@@ -24,12 +24,12 @@ class FormApiProvider {
   }
 
   // Method to fetch a single form by ID
-  Future<Form> getFormById(int id) async {
+  Future<FormModel> getFormModelById(int id) async {
     try {
-      final response = await _dio.get('$_baseUrl/Form/$id');
+      final response = await _dio.get('$_baseUrl/FormModel/$id');
 
       if (response.statusCode == 200) {
-        return Form.fromJson(response.data);
+        return FormModel.fromJson(response.data);
       } else {
         throw Exception('Failed to fetch the form');
       }
@@ -39,12 +39,12 @@ class FormApiProvider {
   }
 
   // Method to create a new form
-  Future<Form> createForm(Form form) async {
+  Future<FormModel> createFormModel(FormModel form) async {
     try {
-      final response = await _dio.post('$_baseUrl/Form', data: form.toJson());
+      final response = await _dio.post('$_baseUrl/FormModel', data: form.toJson());
 
       if (response.statusCode == 201) {
-        return Form.fromJson(response.data);
+        return FormModel.fromJson(response.data);
       } else {
         throw Exception('Failed to create the form');
       }
@@ -54,9 +54,9 @@ class FormApiProvider {
   }
 
   // Method to update an existing form
-  Future<void> updateForm(Form form) async {
+  Future<void> updateFormModel(FormModel form) async {
     try {
-      final response = await _dio.put('$_baseUrl/Form/${form.id}', data: form.toJson());
+      final response = await _dio.put('$_baseUrl/FormModel/${form.id}', data: form.toJson());
 
       if (response.statusCode != 204) {
         throw Exception('Failed to update the form');
@@ -67,9 +67,9 @@ class FormApiProvider {
   }
 
   // Method to delete a form by ID
-  Future<void> deleteForm(int id) async {
+  Future<void> deleteFormModel(int id) async {
     try {
-      final response = await _dio.delete('$_baseUrl/Form/$id');
+      final response = await _dio.delete('$_baseUrl/FormModel/$id');
 
       if (response.statusCode != 204) {
         throw Exception('Failed to delete the form');
