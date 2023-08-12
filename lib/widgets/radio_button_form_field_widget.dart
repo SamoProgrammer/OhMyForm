@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:form_generator/models/form_element.dart';
+import 'package:form_generator/models/form_element_model.dart';
 
 class RadioButtonFormFieldWidget extends StatefulWidget {
-  final FormElement element;
+  final FormElementModel element;
   const RadioButtonFormFieldWidget({super.key, required this.element});
 
   @override
@@ -29,16 +29,16 @@ class _RadioButtonFormFieldWidgetState
             padding: const EdgeInsets.all(0),
             itemCount: widget.element.options.length,
             itemBuilder: (context, index) {
-              return RadioListTile(
-                groupValue: widget.element.value,
-                title: Text(widget.element.options[index]),
-                value: widget.element.options[index],
-                onChanged: (newIndex) {
-                  setState(() {
-                    widget.element.value = newIndex;
-                  });
-                },
-              );
+              // return RadioListTile(
+              //   groupValue: widget.element.value,
+              //   title: Text(widget.element.options[index]),
+              //   value: widget.element.options[index],
+              //   onChanged: (newIndex) {
+              //     setState(() {
+              //       widget.element.value = newIndex;
+              //     });
+              //   },
+              // );
             },
           )
       ],
