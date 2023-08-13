@@ -57,13 +57,20 @@ class FormElementModelApiService {
   }
 
   // Method to update an existing form element
-  Future<void> updateFormElementModel(FormElementModel formElement) async {
+  Future<void> updateFormElementModel(
+      List<FormElementModel> formElements) async {
     try {
-      final response = await _dio.put(
-          '$_baseUrl/FormElementModel/${formElement.id}',
-          data: formElement.toJson());
+      final headers = {
+        'accept': '*/*',
+        'Content-Type': 'application/json',
+      };
+      print(formElementToJson(formElements));
+      final response = await _dio.post(
+          '$_baseUrl/UpdateFormElements?formId=${formElements.first.formId}',
+          options: Options(headers: headers),
+          data: formElementToJson(formElements));
 
-      if (response.statusCode != 204) {
+      if (response.statusCode != 200) {
         throw Exception('Failed to update the form element');
       }
     } catch (e) {
