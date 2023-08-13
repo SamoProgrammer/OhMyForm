@@ -45,6 +45,7 @@ class _SelectFieldWidgetState extends State<SelectFieldWidget> {
                   widget.onAdd(FormElementModel(
                       options: "",
                       formId: widget.formId,
+                      id: 0,
                       label: "",
                       type: widget.elementType.index));
                 });
