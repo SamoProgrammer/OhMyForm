@@ -18,6 +18,8 @@ class EditFormPage extends StatefulWidget {
 
 class _EditFormPageState extends State<EditFormPage> {
   final List<SelectFieldWidget> selectFieldWidgets = <SelectFieldWidget>[];
+  final FormElementModelApiService formElementModelApiService =
+      FormElementModelApiService();
   List<FormElementModel> formElements = <FormElementModel>[];
   void _addWidget(FormElementModel element) {
     setState(() {
@@ -116,7 +118,15 @@ class _EditFormPageState extends State<EditFormPage> {
                           Padding(
                             padding: const EdgeInsets.all(5),
                             child: WarningButtonWidget(
-                                text: "ذخیره", onPressed: () {}),
+                                text: "ذخیره",
+                                onPressed: () async {
+                                  await formElementModelApiService
+                                      .updateFormElementModel(formElements)
+                                      .then((value) {
+                                    print("done");
+                                    Navigator.pop(context);
+                                  });
+                                }),
                           ),
                           InfoButtonWidget(text: "بازگشت", onPressed: () {})
                         ],
@@ -135,7 +145,6 @@ class _EditFormPageState extends State<EditFormPage> {
                     itemCount: formElements.length,
                     itemBuilder: (context, index) {
                       return FormElementWidget(element: formElements[index]);
-                      
                     })),
           ),
         ],
