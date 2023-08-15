@@ -12,34 +12,26 @@ String formElementValueModelToJson(List<FormElementValueModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class FormElementValueModel {
-  final int id;
-  final String label;
-  final String options;
-  final int formId;
-  final int type;
+  final int answeredBy;
+  final String value;
+  final int formElementId;
 
   FormElementValueModel({
-    required this.id,
-    required this.label,
-    required this.options,
-    required this.formId,
-    required this.type,
+    required this.answeredBy,
+    required this.value,
+    required this.formElementId,
   });
 
   factory FormElementValueModel.fromJson(Map<String, dynamic> json) =>
       FormElementValueModel(
-        id: json["id"],
-        label: json["label"],
-        options: json["options"],
-        formId: json["formId"],
-        type: json["type"],
+        answeredBy: json["answeredBy"],
+        value: json["value"],
+        formElementId: json["formElementId"],
       );
 
   Map<String, dynamic> toJson() => {
-        "id": id,
-        "label": label,
-        "options": options,
-        "formId": formId,
-        "type": type,
+        "answeredBy": answeredBy,
+        "value": value,
+        "formElementId": formElementId,
       };
 }
