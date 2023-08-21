@@ -12,7 +12,7 @@ String formElementValueModelToJson(List<FormElementValueModel> data) =>
     json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class FormElementValueModel {
-  final int answeredBy;
+  final String answeredBy;
   final String value;
   final int formElementId;
 
