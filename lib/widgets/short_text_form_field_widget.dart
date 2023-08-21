@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class ShortTextFormFieldWidget extends StatefulWidget {
   final String lable;
-  const ShortTextFormFieldWidget({super.key, required this.lable});
+  TextEditingController? controller;
+  ShortTextFormFieldWidget({super.key, required this.lable,this.controller});
 
   @override
   State<ShortTextFormFieldWidget> createState() =>

@@ -3,7 +3,9 @@ import 'package:form_generator/models/form_element_model.dart';
 
 class RadioButtonFormFieldWidget extends StatefulWidget {
   final FormElementModel element;
-  const RadioButtonFormFieldWidget({super.key, required this.element});
+  TextEditingController? controller;
+  RadioButtonFormFieldWidget(
+      {super.key, required this.element, this.controller});
 
   @override
   State<RadioButtonFormFieldWidget> createState() =>

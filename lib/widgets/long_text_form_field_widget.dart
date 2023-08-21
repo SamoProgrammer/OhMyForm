@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 
 class LongTextFormFieldWidget extends StatefulWidget {
   final String lable;
-  const LongTextFormFieldWidget({super.key, required this.lable});
+  TextEditingController? controller;
+   LongTextFormFieldWidget({super.key, required this.lable,this.controller});
 
   @override
   State<LongTextFormFieldWidget> createState() =>

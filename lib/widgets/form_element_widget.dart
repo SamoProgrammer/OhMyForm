@@ -10,7 +10,8 @@ import 'package:form_generator/widgets/short_text_form_field_widget.dart';
 
 class FormElementWidget extends StatefulWidget {
   FormElementModel element;
-  FormElementWidget({super.key, required this.element});
+  TextEditingController? controller;
+  FormElementWidget({super.key, required this.element, this.controller});
 
   @override
   State<FormElementWidget> createState() => _FormElementWidgetState();
@@ -32,12 +33,19 @@ class _FormElementWidgetState extends State<FormElementWidget> {
         style: const TextStyle(fontSize: 18),
       );
     } else if (widget.element.type == FormElementType.shortText.index) {
-      formElementWidget = const ShortTextFormFieldWidget(lable: "متن کوتاه");
+      formElementWidget = ShortTextFormFieldWidget(
+        lable: "متن کوتاه",
+        controller: widget.controller,
+      );
     } else if (widget.element.type == FormElementType.multiLineText.index) {
-      formElementWidget = const LongTextFormFieldWidget(lable: "متن بلند");
+      formElementWidget = LongTextFormFieldWidget(
+        lable: "متن بلند",
+        controller: widget.controller,
+      );
     } else if (widget.element.type == FormElementType.radioButton.index) {
       formElementWidget = RadioButtonFormFieldWidget(
         element: widget.element,
+        controller: widget.controller,
       );
     } else if (widget.element.type == FormElementType.checkBox.index) {}
     return Padding(
