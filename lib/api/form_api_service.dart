@@ -26,7 +26,7 @@ class FormModelApiService {
   // Method to fetch a single form by ID
   Future<FormModel> getFormModelById(int id) async {
     try {
-      final response = await _dio.get('$_baseUrl/FormModel/$id');
+      final response = await _dio.get('$_baseUrl/$id');
 
       if (response.statusCode == 200) {
         return FormModel.fromJson(response.data);
@@ -41,7 +41,7 @@ class FormModelApiService {
   // Method to create a new form
   Future<FormModel> createFormModel(FormModel form) async {
     try {
-      final response = await _dio.post('$_baseUrl/FormModel', data: form.toJson());
+      final response = await _dio.post('$_baseUrl', data: form.toJson());
 
       if (response.statusCode == 201) {
         return FormModel.fromJson(response.data);
@@ -56,7 +56,7 @@ class FormModelApiService {
   // Method to update an existing form
   Future<void> updateFormModel(FormModel form) async {
     try {
-      final response = await _dio.put('$_baseUrl/FormModel/${form.id}', data: form.toJson());
+      final response = await _dio.put('$_baseUrl/${form.id}', data: form.toJson());
 
       if (response.statusCode != 204) {
         throw Exception('Failed to update the form');
@@ -69,7 +69,7 @@ class FormModelApiService {
   // Method to delete a form by ID
   Future<void> deleteFormModel(int id) async {
     try {
-      final response = await _dio.delete('$_baseUrl/FormModel/$id');
+      final response = await _dio.delete('$_baseUrl/$id');
 
       if (response.statusCode != 204) {
         throw Exception('Failed to delete the form');
