@@ -22,7 +22,8 @@ class _LongTextFormFieldWidgetState extends State<LongTextFormFieldWidget> {
             style: const TextStyle(fontSize: 18),
           ),
         ),
-        TextFormField(
+        TextField(
+          controller: widget.controller,
           maxLines: null,
           decoration: const InputDecoration(
               border: OutlineInputBorder(
