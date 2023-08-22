@@ -12,6 +12,7 @@ import 'package:form_generator/services/user_log_service.dart';
 import 'package:form_generator/widgets/login/adaptive_scaffold.dart';
 import 'package:form_generator/widgets/login/login_page_compact_view.dart';
 import 'package:form_generator/widgets/login/login_page_full_view.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
   UserLogService userLogService = UserLogService();
@@ -23,26 +24,30 @@ void main() async {
 
 class FormGeneratorApp extends StatelessWidget {
   String userLogined;
+  bool isUserAnswerdForm = false;
   FormGeneratorApp({super.key, required this.userLogined});
 
   void reCheckUserLogin() async {
     UserLogService userLogService = UserLogService();
     userLogined = await userLogService.checkUserLogin();
+    print(userLogined);
+  }
+
+  void checkIfUserAnswerdForm(int formId) async {
+    var preferences = await SharedPreferences.getInstance();
+    String username = preferences.getString('username')!;
+    FormApiService formApiService = FormApiService();
+
+    isUserAnswerdForm =
+        await formApiService.isUserAnswerdForm(username, formId);
   }
 
   @override
   Widget build(BuildContext context) {
     final FormElementModelApiService formElementModelApiService =
         FormElementModelApiService();
-    final FormModelApiService formModelApiService = FormModelApiService();
+    final FormApiService formModelApiService = FormApiService();
     const welcomeImage = 'assets/images/welcome.jpg';
-    final formKey = GlobalKey<FormState>();
-    // if (userLogined == 'false') {
-    //   return AdaptiveScaffold(
-    //       full: LoginPageFullView(welcomeImage: welcomeImage, formKey: formKey),
-    //       compact: LoginPageCompactView(
-    //           welcomeImage: welcomeImage, formKey: formKey));
-    // }
     final routerDelegate = BeamerDelegate(
       locationBuilder: RoutesLocationBuilder(
         routes: {
@@ -62,6 +67,7 @@ class FormGeneratorApp extends StatelessWidget {
           // '/forms': (context, state, data) => BooksScreen(),
           '/edit-form/:formId': (context, state, data) {
             // Take the path parameter of interest from BeamState
+            print("in form");
             final formId = state.pathParameters['formId']!;
             reCheckUserLogin();
             return userLogined != 'false'
@@ -102,8 +108,9 @@ class FormGeneratorApp extends StatelessWidget {
           },
           '/form/:formId': (context, state, data) {
             // Take the path parameter of interest from BeamState
-            final formId = state.pathParameters['formId']!;
+            final formId = int.parse(state.pathParameters['formId']!);
             reCheckUserLogin();
+            checkIfUserAnswerdForm(formId);
             return userLogined != 'false'
                 ? BeamPage(
                     key: ValueKey(formId),
@@ -113,8 +120,8 @@ class FormGeneratorApp extends StatelessWidget {
                     child: FutureBuilder(
                       future: Future.wait([
                         formElementModelApiService
-                            .getFormElementModelsById(int.parse(formId)),
-                        formModelApiService.getFormModelById(int.parse(formId))
+                            .getFormElementModelsById(formId),
+                        formModelApiService.getFormModelById(formId)
                       ]),
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
@@ -129,6 +136,7 @@ class FormGeneratorApp extends StatelessWidget {
                           return const Text('No data available.');
                         } else {
                           return AnswerFormPage(
+                            isUserAnswerdForm: isUserAnswerdForm,
                             formElements:
                                 snapshot.data![0] as List<FormElementModel>,
                             form: snapshot.data![1] as FormModel,
