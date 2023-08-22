@@ -7,10 +7,19 @@ class AnswersApiService {
   Future<bool> postFormElementsValue(
       List<FormElementValueModel> formElementsValues) async {
     try {
+      var data = formElementsValues.map((value) {
+        return {
+          "answeredBy": value.answeredBy,
+          "value": value.value,
+          "elementId": value.formElementId
+        };
+      }).toList();
+      print(data);
       final response = await _dio.post(
         _baseUrl,
-        data: formElementsValues.map((value) => value.toJson()).toList(),
+        data: data,
       );
+      print(response.data);
 
       if (response.statusCode == 200) {
         print('Form element values posted successfully');
