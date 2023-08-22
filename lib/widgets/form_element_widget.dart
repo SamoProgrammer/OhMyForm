@@ -11,7 +11,8 @@ import 'package:form_generator/widgets/short_text_form_field_widget.dart';
 class FormElementWidget extends StatefulWidget {
   FormElementModel element;
   TextEditingController? controller;
-  FormElementWidget({super.key, required this.element, this.controller});
+  bool isEditMode;
+  FormElementWidget({super.key, required this.element, this.controller,required this.isEditMode});
 
   @override
   State<FormElementWidget> createState() => _FormElementWidgetState();
@@ -53,6 +54,7 @@ class _FormElementWidgetState extends State<FormElementWidget> {
       child: Column(
         children: [
           formElementWidget,
+          widget.isEditMode?
           Row(
             children: [
               Padding(
@@ -74,7 +76,7 @@ class _FormElementWidgetState extends State<FormElementWidget> {
               ),
               DangerButtonWidget(text: "حذف", onPressed: () {})
             ],
-          ),
+          ):Container(),
         ],
       ),
     );
