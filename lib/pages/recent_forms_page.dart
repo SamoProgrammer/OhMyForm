@@ -13,7 +13,7 @@ class RecentFormsPage extends StatefulWidget {
 }
 
 class _RecentFormsPageState extends State<RecentFormsPage> {
-  final FormModelApiService formApiProvider = FormModelApiService();
+  final FormApiService formApiProvider = FormApiService();
   final FormElementModelApiService formElementModelApiService =
       FormElementModelApiService();
 
