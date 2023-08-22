@@ -22,7 +22,8 @@ class _ShortTextFormFieldWidgetState extends State<ShortTextFormFieldWidget> {
             style: const TextStyle(fontSize: 18),
           ),
         ),
-        TextFormField(
+        TextField(
+          controller: widget.controller,
           maxLength: 25,
           decoration: const InputDecoration(
               border: OutlineInputBorder(
