@@ -73,7 +73,7 @@ class LoginForm extends StatelessWidget {
                       txtUsernameController.text, txtPasswordController.text)
                   .then((loginResult) {
                 if (loginResult) {
-                  context.beamToNamed(afterLogin);
+                  Beamer.of(context).beamToNamed(afterLogin);
                 } else {
                   showDialog(
                     context: context,
