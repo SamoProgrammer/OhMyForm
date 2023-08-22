@@ -144,7 +144,7 @@ class _EditFormPageState extends State<EditFormPage> {
                 child: ListView.builder(
                     itemCount: formElements.length,
                     itemBuilder: (context, index) {
-                      return FormElementWidget(element: formElements[index]);
+                      return FormElementWidget(element: formElements[index],isEditMode: true,);
                     })),
           ),
         ],
