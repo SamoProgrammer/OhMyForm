@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:form_generator/models/form_model.dart';
 
-class FormModelApiService {
+class FormApiService {
   final Dio _dio = Dio();
 
   // Replace with your API URL
@@ -56,7 +56,8 @@ class FormModelApiService {
   // Method to update an existing form
   Future<void> updateFormModel(FormModel form) async {
     try {
-      final response = await _dio.put('$_baseUrl/${form.id}', data: form.toJson());
+      final response =
+          await _dio.put('$_baseUrl/${form.id}', data: form.toJson());
 
       if (response.statusCode != 204) {
         throw Exception('Failed to update the form');
@@ -74,6 +75,22 @@ class FormModelApiService {
       if (response.statusCode != 204) {
         throw Exception('Failed to delete the form');
       }
+    } catch (e) {
+      throw Exception('Error: $e');
+    }
+  }
+
+  Future<bool> isUserAnswerdForm(String username, int formId) async {
+    try {
+      final response = await _dio.post(
+        '$_baseUrl/IsUserAnswerdForm',
+        queryParameters: {
+          'username': username,
+          'formId': formId,
+        },
+      );
+
+      return response.data;
     } catch (e) {
       throw Exception('Error: $e');
     }
