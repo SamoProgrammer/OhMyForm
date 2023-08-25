@@ -30,7 +30,6 @@ class FormGeneratorApp extends StatelessWidget {
   void reCheckUserLogin() async {
     UserLogService userLogService = UserLogService();
     userLogined = await userLogService.checkUserLogin();
-    print(userLogined);
   }
 
   void checkIfUserAnswerdForm(int formId) async {
@@ -76,10 +75,11 @@ class FormGeneratorApp extends StatelessWidget {
                     title: 'فرم آنلاین',
                     popToNamed: '/',
                     type: BeamPageType.scaleTransition,
-                    child: FutureBuilder<List<FormElementModel>>(
+                    child: FutureBuilder(
                       future: formElementModelApiService
                           .getFormElementModelsById(int.parse(formId)),
                       builder: (context, snapshot) {
+                        print(snapshot.data);
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const Scaffold(
@@ -93,7 +93,7 @@ class FormGeneratorApp extends StatelessWidget {
                         } else {
                           return EditFormPage(
                               existedFormElements:
-                                  snapshot.data![0] as List<FormElementModel>);
+                                  snapshot.data!);
                         }
                       },
                     ))
