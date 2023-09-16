@@ -39,9 +39,14 @@ class FormApiService {
   }
 
   // Method to create a new form
-  Future<FormModel> createFormModel(FormModel form) async {
+  Future<FormModel> createFormModel(
+      String username, String title, DateTime endTime) async {
     try {
-      final response = await _dio.post('$_baseUrl', data: form.toJson());
+      final response = await _dio.post('$_baseUrl', data: {
+        "authorUsername": username,
+        "title": title,
+        "endTime": endTime
+      });
 
       if (response.statusCode == 201) {
         return FormModel.fromJson(response.data);
