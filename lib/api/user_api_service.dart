@@ -30,21 +30,25 @@ class UserApiService {
   }
 
   Future<bool> loginUser(String username, String password) async {
-    final response = await _dio.post(
-      '$baseUrl/Login',
-      queryParameters: {
-        'username': username,
-        'password': password,
-      },
-    );
-    if (response.statusCode == 200) {
-      // Login successful
-      // You can access the token using response.data['token']
-      saveToken(response.data['token'], username, password);
-      return true;
-    } else {
+    try {
+      final response = await _dio.post(
+        '$baseUrl/Login',
+        queryParameters: {
+          'username': username,
+          'password': password,
+        },
+      );
+      if (response.statusCode == 200) {
+        // Login successful
+        // You can access the token using response.data['token']
+        saveToken(response.data['token'], username, password);
+        return true;
+      } else {
+        return false;
+        // Handle error
+      }
+    } on DioException {
       return false;
-      // Handle error
     }
   }
 

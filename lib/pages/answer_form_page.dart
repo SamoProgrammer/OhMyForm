@@ -74,16 +74,15 @@ class _AnswerFormPageState extends State<AnswerFormPage> {
                             onPressed: () async {
                               await fillFormElementValues();
 
-                              print("${formElementValues.length}answers 1");
                               await answersApiService
                                   .postFormElementsValue(formElementValues)
-                                  .then((value) {
+                                  .whenComplete(() {
                                 showDialog(
                                   context: context,
                                   barrierDismissible: false,
-                                  builder: (context) => AlertDialog(
+                                  builder: (context) => const AlertDialog(
                                       content: Column(
-                                    children: const [
+                                    children: [
                                       Text("فرم ارسال شد"),
                                       Text("میتوانید صفحه مرورگر را ببندید"),
                                     ],
@@ -101,8 +100,6 @@ class _AnswerFormPageState extends State<AnswerFormPage> {
   }
 
   Future<void> fillFormElementValues() async {
-    print("${controllers.length}controllers");
-    print("${newFormElements.length}form elements");
     var preferences = await SharedPreferences.getInstance();
     String username = preferences.getString('username')!;
     List<FormElementValueModel> newFormElementValues = [];
@@ -114,11 +111,9 @@ class _AnswerFormPageState extends State<AnswerFormPage> {
             formElementId: element.id!));
       });
     }
-    print("${newFormElementValues.length}new answers");
     setState(() {
       formElementValues = [];
       formElementValues.addAll(newFormElementValues);
     });
-    print("${formElementValues.length}answers");
   }
 }

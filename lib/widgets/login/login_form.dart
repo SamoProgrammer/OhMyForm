@@ -35,14 +35,14 @@ class LoginForm extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text(
-            'Welcome back',
+            'خوش آمدید',
             style: TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
           const Text(
-            'Login to manage your account.',
+            'برای استفاده از خدمات این وبسایت باید وارد شوید',
             style: TextStyle(
               fontSize: 14,
             ),
@@ -53,7 +53,7 @@ class LoginForm extends StatelessWidget {
               controller: txtUsernameController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Email *',
+                labelText: 'نام کاربری',
               ),
             ),
             const SizedBox(height: 24),
@@ -61,17 +61,19 @@ class LoginForm extends StatelessWidget {
               controller: txtPasswordController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                labelText: 'Password *',
+                labelText: 'رمز عبور',
               ),
             )
           ]),
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () async {
+              bool loginResult = false;
               await userApiService
                   .loginUser(
                       txtUsernameController.text, txtPasswordController.text)
-                  .then((loginResult) {
+                  .then((value) => {loginResult = value})
+                  .whenComplete(() {
                 if (loginResult) {
                   Beamer.of(context).beamToNamed(afterLogin);
                 } else {
@@ -87,7 +89,7 @@ class LoginForm extends StatelessWidget {
               minimumSize: const Size(1024, 60),
             ),
             child: const Text(
-              'Login',
+              'ورود',
               style: TextStyle(fontSize: 16),
             ),
           ),

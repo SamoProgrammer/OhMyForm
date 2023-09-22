@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:form_generator/models/form_model.dart';
 
@@ -39,16 +41,18 @@ class FormApiService {
   }
 
   // Method to create a new form
-  Future<FormModel> createFormModel(
+  Future<FormModel> createNewForm(
       String username, String title, DateTime endTime) async {
     try {
-      final response = await _dio.post('$_baseUrl', data: {
+      var data = json.encode({
         "authorUsername": username,
         "title": title,
-        "endTime": endTime
+        "endTime": "${endTime.toIso8601String()}Z"
       });
+      print(data);
+      final response = await _dio.post(_baseUrl, data: data);
 
-      if (response.statusCode == 201) {
+      if (response.statusCode == 200) {
         return FormModel.fromJson(response.data);
       } else {
         throw Exception('Failed to create the form');
@@ -73,13 +77,14 @@ class FormApiService {
   }
 
   // Method to delete a form by ID
-  Future<void> deleteFormModel(int id) async {
+  Future<bool> deleteFormModel(int id) async {
     try {
       final response = await _dio.delete('$_baseUrl/$id');
 
-      if (response.statusCode != 204) {
+      if (response.statusCode != 200) {
         throw Exception('Failed to delete the form');
       }
+      return true;
     } catch (e) {
       throw Exception('Error: $e');
     }

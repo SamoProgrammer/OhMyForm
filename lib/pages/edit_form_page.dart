@@ -31,16 +31,16 @@ class _EditFormPageState extends State<EditFormPage> {
   void initState() {
     selectFieldWidgets.addAll([
       SelectFieldWidget(
-        elementType: FormElementType.description,
+        elementType: FormElementType.title,
         elementTypeIcon: FontAwesomeIcons.info,
-        elementTypeName: 'توضیحات',
+        elementTypeName: 'عنوان',
         onAdd: _addWidget,
         formId: widget.existedFormElements.first.formId,
       ),
       SelectFieldWidget(
-        elementType: FormElementType.radioButton,
-        elementTypeIcon: FontAwesomeIcons.listCheck,
-        elementTypeName: 'چند گزینه ای',
+        elementType: FormElementType.description,
+        elementTypeIcon: FontAwesomeIcons.info,
+        elementTypeName: 'توضیحات',
         onAdd: _addWidget,
         formId: widget.existedFormElements.first.formId,
       ),
@@ -55,6 +55,20 @@ class _EditFormPageState extends State<EditFormPage> {
         elementType: FormElementType.multiLineText,
         elementTypeIcon: Icons.text_increase,
         elementTypeName: 'متن بلند',
+        onAdd: _addWidget,
+        formId: widget.existedFormElements.first.formId,
+      ),
+      SelectFieldWidget(
+        elementType: FormElementType.radioButton,
+        elementTypeIcon: FontAwesomeIcons.listCheck,
+        elementTypeName: 'چند گزینه ای',
+        onAdd: _addWidget,
+        formId: widget.existedFormElements.first.formId,
+      ),
+      SelectFieldWidget(
+        elementType: FormElementType.checkBox,
+        elementTypeIcon: FontAwesomeIcons.listCheck,
+        elementTypeName: 'بله یا خیر',
         onAdd: _addWidget,
         formId: widget.existedFormElements.first.formId,
       ),

@@ -7,6 +7,7 @@ import 'package:form_generator/models/form_element_model.dart';
 import 'package:form_generator/models/form_model.dart';
 import 'package:form_generator/pages/answer_form_page.dart';
 import 'package:form_generator/pages/edit_form_page.dart';
+import 'package:form_generator/pages/proccess_request_page.dart';
 import 'package:form_generator/pages/recent_forms_page.dart';
 import 'package:form_generator/services/user_log_service.dart';
 import 'package:form_generator/widgets/login/adaptive_scaffold.dart';
@@ -54,7 +55,7 @@ class FormGeneratorApp extends StatelessWidget {
           '/': (context, state, data) {
             reCheckUserLogin();
             return userLogined == 'Admin'
-                ? const RecentFormsPage()
+                ? const BeamPage(child: RecentFormsPage(), key: ValueKey('/'))
                 : const AdaptiveScaffold(
                     full: LoginPageFullView(
                       welcomeImage: welcomeImage,
@@ -71,7 +72,7 @@ class FormGeneratorApp extends StatelessWidget {
             reCheckUserLogin();
             return userLogined != 'false'
                 ? BeamPage(
-                    key: ValueKey(formId),
+                    key: const ValueKey("edit-form"),
                     title: 'فرم آنلاین',
                     popToNamed: '/',
                     type: BeamPageType.scaleTransition,
@@ -92,8 +93,7 @@ class FormGeneratorApp extends StatelessWidget {
                           return const Text('No data available.');
                         } else {
                           return EditFormPage(
-                              existedFormElements:
-                                  snapshot.data!);
+                              existedFormElements: snapshot.data!);
                         }
                       },
                     ))
@@ -113,7 +113,7 @@ class FormGeneratorApp extends StatelessWidget {
             checkIfUserAnswerdForm(formId);
             return userLogined != 'false'
                 ? BeamPage(
-                    key: ValueKey(formId),
+                    key: const ValueKey("form"),
                     title: 'فرم آنلاین',
                     popToNamed: '/',
                     type: BeamPageType.scaleTransition,
@@ -152,6 +152,10 @@ class FormGeneratorApp extends StatelessWidget {
                     compact: LoginPageCompactView(
                         welcomeImage: welcomeImage,
                         afterLogin: '/form/$formId'));
+          },
+          '/proccess-request': (context, state, data) {
+            return BeamPage(
+                child: ProccessRequestPage(url: state.queryParameters["url"]!));
           }
         },
       ),

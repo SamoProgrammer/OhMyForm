@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class LoginPageHeroImage extends StatelessWidget {
   const LoginPageHeroImage({
     Key? key,
@@ -23,9 +24,9 @@ class LoginPageHeroImage extends StatelessWidget {
         ),
         Positioned(
           bottom: 24,
-          left: 24,
+          right: 24,
           child: Text(
-            'Start your\njourney with us.',
+            'هنرستان سمپاد امیرکبیر',
             maxLines: 2,
             style: textTheme.headlineMedium!.copyWith(
               color: Colors.white,
@@ -33,28 +34,6 @@ class LoginPageHeroImage extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
-          top: 24,
-          left: 24,
-          child: Row(
-            children: [
-              const Icon(
-                Icons.sunny_snowing,
-                color: Colors.white,
-                size: 30,
-              ),
-              const SizedBox(width: 8),
-              Text(
-                'Big Corp.',
-                maxLines: 2,
-                style: textTheme.titleLarge!.copyWith(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ],
-          ),
-        )
       ],
     );
   }
