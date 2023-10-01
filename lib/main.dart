@@ -76,24 +76,30 @@ class FormGeneratorApp extends StatelessWidget {
                     title: 'فرم آنلاین',
                     popToNamed: '/',
                     type: BeamPageType.scaleTransition,
-                    child: FutureBuilder(
+                    child: FutureBuilder<dynamic>(
                       future: formElementModelApiService
                           .getFormElementModelsById(int.parse(formId)),
                       builder: (context, snapshot) {
-                        print(snapshot.data);
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
                           return const Scaffold(
                               body:
                                   CircularProgressIndicator()); // Display a loading indicator if needed
+                        }
+                        if (snapshot.data!.isEmpty) {
+                          return EditFormPage(
+                            existedFormElements: [],
+                            formId: int.parse(formId),
+                          );
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
-                        } else if (!snapshot.hasData ||
-                            snapshot.data!.isEmpty) {
+                        } else if (!snapshot.hasData) {
                           return const Text('No data available.');
                         } else {
                           return EditFormPage(
-                              existedFormElements: snapshot.data!);
+                            existedFormElements: snapshot.data!,
+                            formId: int.parse(formId),
+                          );
                         }
                       },
                     ))

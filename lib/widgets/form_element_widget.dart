@@ -13,11 +13,13 @@ class FormElementWidget extends StatefulWidget {
   FormElementModel element;
   TextEditingController? controller;
   bool isEditMode;
+  Function? onDelete;
   FormElementWidget(
       {super.key,
       required this.element,
       this.controller,
-      required this.isEditMode});
+      required this.isEditMode,
+      this.onDelete});
 
   @override
   State<FormElementWidget> createState() => _FormElementWidgetState();
@@ -89,7 +91,11 @@ class _FormElementWidgetState extends State<FormElementWidget> {
                             );
                           }),
                     ),
-                    DangerButtonWidget(text: "حذف", onPressed: () {})
+                    DangerButtonWidget(
+                        text: "حذف",
+                        onPressed: () {
+                          widget.onDelete!(widget.element);
+                        })
                   ],
                 )
               : Container(),

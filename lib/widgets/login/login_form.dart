@@ -1,4 +1,5 @@
 import 'package:beamer/beamer.dart';
+import 'dart:html' as html;
 import 'package:flutter/material.dart';
 import 'package:form_generator/api/user_api_service.dart';
 import 'package:form_generator/widgets/info_button_widget.dart';
@@ -75,7 +76,8 @@ class LoginForm extends StatelessWidget {
                   .then((value) => {loginResult = value})
                   .whenComplete(() {
                 if (loginResult) {
-                  Beamer.of(context).beamToNamed(afterLogin);
+                  var currentHref = html.window.location.href;
+                  html.window.location.href = currentHref;
                 } else {
                   showDialog(
                     context: context,

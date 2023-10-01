@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:form_generator/api/form_api_service.dart';
 import 'package:form_generator/api/form_element_api_service.dart';
 import 'package:form_generator/pages/proccess_request_page.dart';
+import 'dart:html' as html;
 import 'package:form_generator/widgets/danger_button_widget.dart';
 import 'package:form_generator/widgets/info_button_widget.dart';
 import 'package:form_generator/widgets/warning_button_widget.dart';
@@ -101,9 +102,7 @@ class _FormCardWidgetState extends State<FormCardWidget> {
                                       .deleteFormModel(widget.formId)
                                       .whenComplete(() {
                                     Navigator.pop(context);
-                                    Beamer.of(context).beamToNamed(
-                                        "/proccess-request?url=%2F",
-                                        popBeamLocationOnPop: true);
+                                    html.window.location.href = "/";
                                   });
                                 }),
                             InfoButtonWidget(

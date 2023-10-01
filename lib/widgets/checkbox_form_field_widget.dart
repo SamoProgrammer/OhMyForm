@@ -16,9 +16,9 @@ class _LongTextFormFieldWidgetState extends State<CheckBoxFormFieldWidget> {
     bool checkedValue = false;
     return Row(
       children: [
+        Text(widget.lable),
         Expanded(
-          child: CheckboxListTile(
-            title: Text(widget.lable),
+          child: Checkbox(
             value: checkedValue,
             onChanged: (newValue) {
               setState(() {
@@ -26,8 +26,6 @@ class _LongTextFormFieldWidgetState extends State<CheckBoxFormFieldWidget> {
                 widget.controller!.text = checkedValue.toString();
               });
             },
-            controlAffinity:
-                ListTileControlAffinity.leading, //  <-- leading Checkbox
           ),
         )
       ],

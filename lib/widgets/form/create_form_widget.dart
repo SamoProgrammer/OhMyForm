@@ -1,7 +1,9 @@
 import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'dart:html' as html;
 import 'package:form_generator/api/form_api_service.dart';
 import 'package:form_generator/widgets/info_button_widget.dart';
+import 'package:intl/intl.dart';
 import 'package:persian_datetime_picker/persian_datetime_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -16,6 +18,7 @@ class _CreatFormWidgetState extends State<CreateFormWidget> {
   FormApiService formApiService = FormApiService();
   TimeOfDay pickedTimeOfDay = const TimeOfDay(hour: 0, minute: 0);
   DateTime pickedDateTime = DateTime(1);
+  final formatNumber = NumberFormat("###", "fa_ir");
   String tempFormTitleControllerValue = "";
   TextEditingController formTitleController = TextEditingController();
 
@@ -44,7 +47,8 @@ class _CreatFormWidgetState extends State<CreateFormWidget> {
                 });
               }),
           pickedTimeOfDay.hour != 0
-              ? Text("${pickedTimeOfDay.hour}:${pickedTimeOfDay.minute}")
+              ? Text(
+                  "${formatNumber.format(pickedTimeOfDay.hour)}:${formatNumber.format(pickedTimeOfDay.minute)}")
               : Container(),
           const Padding(padding: EdgeInsets.symmetric(vertical: 20)),
           InfoButtonWidget(
@@ -62,7 +66,7 @@ class _CreatFormWidgetState extends State<CreateFormWidget> {
               }),
           pickedDateTime.year != 1
               ? Text(
-                  "${pickedDateTime.year}/${pickedDateTime.day}/${pickedDateTime.month}")
+                  "${formatNumber.format(pickedDateTime.year)}/${formatNumber.format(pickedDateTime.day)}/${formatNumber.format(pickedDateTime.month)}")
               : Container()
         ],
       ),
@@ -88,8 +92,10 @@ class _CreatFormWidgetState extends State<CreateFormWidget> {
                         minutes: pickedTimeOfDay.minute)))
                 .whenComplete(() {
               Navigator.pop(context);
-              Beamer.of(context).beamToNamed("/proccess-request?url=%2F",
-                  popBeamLocationOnPop: true);
+              // Beamer.of(context).beamToNamed("/proccess-request?url=%2F",
+              //     popBeamLocationOnPop: true);
+              var currentHref = html.window.location.href;
+              html.window.location.href = currentHref;
             });
           },
         ),

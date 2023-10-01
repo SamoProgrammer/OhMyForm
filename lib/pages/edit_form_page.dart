@@ -1,4 +1,6 @@
+import 'package:beamer/beamer.dart';
 import 'package:flutter/material.dart';
+import 'dart:html' as html;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_generator/api/form_element_api_service.dart';
 import 'package:form_generator/models/form_element_model.dart';
@@ -10,7 +12,9 @@ import 'package:form_generator/widgets/select_field_widget.dart';
 
 class EditFormPage extends StatefulWidget {
   final List<FormElementModel> existedFormElements;
-  const EditFormPage({super.key, required this.existedFormElements});
+  final int formId;
+  const EditFormPage(
+      {super.key, required this.existedFormElements, required this.formId});
 
   @override
   State<EditFormPage> createState() => _EditFormPageState();
@@ -35,46 +39,60 @@ class _EditFormPageState extends State<EditFormPage> {
         elementTypeIcon: FontAwesomeIcons.info,
         elementTypeName: 'عنوان',
         onAdd: _addWidget,
-        formId: widget.existedFormElements.first.formId,
+        formId: widget.formId,
       ),
       SelectFieldWidget(
         elementType: FormElementType.description,
         elementTypeIcon: FontAwesomeIcons.info,
         elementTypeName: 'توضیحات',
         onAdd: _addWidget,
-        formId: widget.existedFormElements.first.formId,
+        formId: widget.formId,
       ),
       SelectFieldWidget(
         elementType: FormElementType.shortText,
         elementTypeIcon: Icons.short_text,
         elementTypeName: 'متن کوتاه',
         onAdd: _addWidget,
-        formId: widget.existedFormElements.first.formId,
+        formId: widget.formId,
       ),
       SelectFieldWidget(
         elementType: FormElementType.multiLineText,
         elementTypeIcon: Icons.text_increase,
         elementTypeName: 'متن بلند',
         onAdd: _addWidget,
-        formId: widget.existedFormElements.first.formId,
+        formId: widget.formId,
       ),
       SelectFieldWidget(
         elementType: FormElementType.radioButton,
         elementTypeIcon: FontAwesomeIcons.listCheck,
         elementTypeName: 'چند گزینه ای',
         onAdd: _addWidget,
-        formId: widget.existedFormElements.first.formId,
+        formId: widget.formId,
       ),
       SelectFieldWidget(
         elementType: FormElementType.checkBox,
         elementTypeIcon: FontAwesomeIcons.listCheck,
         elementTypeName: 'بله یا خیر',
         onAdd: _addWidget,
-        formId: widget.existedFormElements.first.formId,
+        formId: widget.formId,
       ),
     ]);
     formElements.addAll(widget.existedFormElements);
     super.initState();
+  }
+
+  void updateElements() async {
+    await formElementModelApiService
+        .updateFormElementModel(formElements)
+        .whenComplete(() {
+      Navigator.pop(context);
+    });
+  }
+
+  void deleteElement(FormElementModel element) {
+    setState(() {
+      formElements.remove(element);
+    });
   }
 
   @override
@@ -134,15 +152,14 @@ class _EditFormPageState extends State<EditFormPage> {
                             child: WarningButtonWidget(
                                 text: "ذخیره",
                                 onPressed: () async {
-                                  await formElementModelApiService
-                                      .updateFormElementModel(formElements)
-                                      .then((value) {
-                                    print("done");
-                                    Navigator.pop(context);
-                                  });
+                                  updateElements();
                                 }),
                           ),
-                          InfoButtonWidget(text: "بازگشت", onPressed: () {})
+                          InfoButtonWidget(
+                              text: "بازگشت",
+                              onPressed: () {
+                                html.window.location.href = "/";
+                              })
                         ],
                       ),
                     ),
@@ -158,7 +175,11 @@ class _EditFormPageState extends State<EditFormPage> {
                 child: ListView.builder(
                     itemCount: formElements.length,
                     itemBuilder: (context, index) {
-                      return FormElementWidget(element: formElements[index],isEditMode: true,);
+                      return FormElementWidget(
+                        element: formElements[index],
+                        isEditMode: true,
+                        onDelete: deleteElement,
+                      );
                     })),
           ),
         ],

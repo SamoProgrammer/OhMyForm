@@ -95,7 +95,7 @@ class _RecentFormsPageState extends State<RecentFormsPage> {
                         } else if (!snapshot.hasData ||
                             snapshot.data!.isEmpty) {
                           return const Center(
-                              child: Text('No forms available.'));
+                              child: Text('هیچ فرمی وجود ندارد.'));
                         } else {
                           // Display the list of forms in a grid using GridView.builder
                           return GridView.builder(

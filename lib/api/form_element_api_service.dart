@@ -13,6 +13,9 @@ class FormElementModelApiService {
       final response = await _dio.get(_baseUrl);
 
       if (response.statusCode == 200) {
+        if (response.data == "[]") {
+          return <FormElementModel>[];
+        }
         final List<dynamic> data = response.data;
         return data.map((json) => FormElementModel.fromJson(json)).toList();
       } else {
@@ -29,6 +32,10 @@ class FormElementModelApiService {
       final response = await _dio.get('$_baseUrl/$id');
 
       if (response.statusCode == 200) {
+        print("response is :" + response.data.toString());
+        if (response.data.toString() == "[]") {
+          return <FormElementModel>[];
+        }
         final List<dynamic> data = response.data;
         return data.map((json) => FormElementModel.fromJson(json)).toList();
       } else {
