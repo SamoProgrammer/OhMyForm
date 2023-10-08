@@ -117,6 +117,11 @@ class _FormCardWidgetState extends State<FormCardWidget> {
                   }),
             ],
           ),
+          InfoButtonWidget(
+              text: "دریافت اکسل",
+              onPressed: () {
+                formApiProvider.convertFormDataToCsv(widget.formId);
+              })
         ],
       ),
     );

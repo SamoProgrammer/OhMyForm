@@ -7,6 +7,7 @@ import 'package:form_generator/models/form_element_value_model.dart';
 import 'package:form_generator/models/form_model.dart';
 import 'package:form_generator/widgets/form_element_widget.dart';
 import 'package:form_generator/widgets/info_button_widget.dart';
+import 'package:glass_kit/glass_kit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AnswerFormPage extends StatefulWidget {
@@ -45,53 +46,67 @@ class _AnswerFormPageState extends State<AnswerFormPage> {
               child: Text("شما به این فرم قبلا پاسخ دادید"),
             )
           : SingleChildScrollView(
-              child: Center(
-                child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.5,
-                  height: MediaQuery.of(context).size.height,
-                  child: Column(
-                    children: [
-                      Text(
-                        widget.form.title,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                            itemCount: newFormElements.length,
-                            itemBuilder: (context, index) {
-                              return FormElementWidget(
-                                isEditMode: false,
-                                element: newFormElements[index],
-                                controller: controllers[index],
-                              );
-                            }),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height / 8,
-                        child: InfoButtonWidget(
-                            text: "ارسال پاسخ",
-                            onPressed: () async {
-                              await fillFormElementValues();
-
-                              await answersApiService
-                                  .postFormElementsValue(formElementValues)
-                                  .whenComplete(() {
-                                showDialog(
-                                  context: context,
-                                  barrierDismissible: false,
-                                  builder: (context) => const AlertDialog(
-                                      content: Column(
-                                    children: [
-                                      Text("فرم ارسال شد"),
-                                      Text("میتوانید صفحه مرورگر را ببندید"),
-                                    ],
-                                  )),
+              child: Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    height: MediaQuery.of(context).size.height,
+                    child: Column(
+                      children: [
+                        Text(
+                          widget.form.title,
+                          style: const TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 20),
+                        ),
+                        Expanded(
+                          child: ListView.builder(
+                              itemCount: newFormElements.length,
+                              itemBuilder: (context, index) {
+                                if (index == 0) {
+                                  return Center(
+                                    child: Text(
+                                      newFormElements[index].label,
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 26),
+                                    ),
+                                  );
+                                }
+                                return FormElementWidget(
+                                  isEditMode: false,
+                                  element: newFormElements[index],
+                                  controller: controllers[index],
                                 );
-                              });
-                            }),
-                      )
-                    ],
+                              }),
+                        ),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height / 8,
+                          child: InfoButtonWidget(
+                              text: "ارسال پاسخ",
+                              onPressed: () async {
+                                await fillFormElementValues();
+
+                                await answersApiService
+                                    .postFormElementsValue(formElementValues)
+                                    .whenComplete(() {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false,
+                                    builder: (context) => const AlertDialog(
+                                        content: Column(
+                                      children: [
+                                        Text("فرم ارسال شد"),
+                                        Text("میتوانید صفحه مرورگر را ببندید"),
+                                      ],
+                                    )),
+                                  );
+                                });
+                              }),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

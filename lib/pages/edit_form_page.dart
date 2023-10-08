@@ -81,13 +81,7 @@ class _EditFormPageState extends State<EditFormPage> {
     super.initState();
   }
 
-  void updateElements() async {
-    await formElementModelApiService
-        .updateFormElementModel(formElements)
-        .whenComplete(() {
-      Navigator.pop(context);
-    });
-  }
+  void updateElements() async {}
 
   void deleteElement(FormElementModel element) {
     setState(() {
@@ -152,7 +146,11 @@ class _EditFormPageState extends State<EditFormPage> {
                             child: WarningButtonWidget(
                                 text: "ذخیره",
                                 onPressed: () async {
-                                  updateElements();
+                                  await formElementModelApiService
+                                      .updateFormElementModel(formElements)
+                                      .whenComplete(() {
+                                    html.window.location.href = "/";
+                                  });
                                 }),
                           ),
                           InfoButtonWidget(
@@ -175,6 +173,15 @@ class _EditFormPageState extends State<EditFormPage> {
                 child: ListView.builder(
                     itemCount: formElements.length,
                     itemBuilder: (context, index) {
+                      if (index == 0) {
+                        return Center(
+                          child: Text(
+                            formElements[index].label,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 26),
+                          ),
+                        );
+                      }
                       return FormElementWidget(
                         element: formElements[index],
                         isEditMode: true,
