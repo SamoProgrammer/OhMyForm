@@ -7,6 +7,7 @@ import 'package:form_generator/models/form_element_model.dart';
 import 'package:form_generator/models/form_model.dart';
 import 'package:form_generator/pages/answer_form_page.dart';
 import 'package:form_generator/pages/edit_form_page.dart';
+import 'package:form_generator/pages/not_found_page.dart';
 import 'package:form_generator/pages/proccess_request_page.dart';
 import 'package:form_generator/pages/recent_forms_page.dart';
 import 'package:form_generator/services/user_log_service.dart';
@@ -49,68 +50,79 @@ class FormGeneratorApp extends StatelessWidget {
     final FormApiService formModelApiService = FormApiService();
     const welcomeImage = 'assets/images/welcome.jpg';
     final routerDelegate = BeamerDelegate(
+      notFoundPage: const BeamPage(child: NotFoundPage()),
       locationBuilder: RoutesLocationBuilder(
         routes: {
           // Return either Widgets or BeamPages if more customization is needed
           '/': (context, state, data) {
             reCheckUserLogin();
-            return userLogined == 'Admin'
-                ? const BeamPage(child: RecentFormsPage(), key: ValueKey('/'))
-                : const AdaptiveScaffold(
+            if (userLogined == 'Admin') {
+              return const BeamPage(
+                  child: RecentFormsPage(), key: ValueKey('/'));
+            } else if (userLogined == 'User') {
+              return const BeamPage(child: NotFoundPage());
+            }
+            return const BeamPage(
+                child: AdaptiveScaffold(
                     full: LoginPageFullView(
                       welcomeImage: welcomeImage,
                       afterLogin: '/',
                     ),
                     compact: LoginPageCompactView(
-                        welcomeImage: welcomeImage, afterLogin: '/'));
+                        welcomeImage: welcomeImage, afterLogin: '/')));
+          },
+          '/not-found': (context, state, data) {
+            return const BeamPage(child: NotFoundPage());
           },
           // '/forms': (context, state, data) => BooksScreen(),
           '/edit-form/:formId': (context, state, data) {
             // Take the path parameter of interest from BeamState
-            print("in form");
             final formId = state.pathParameters['formId']!;
             reCheckUserLogin();
-            return userLogined != 'false'
-                ? BeamPage(
-                    key: const ValueKey("edit-form"),
-                    title: 'فرم آنلاین',
-                    popToNamed: '/',
-                    type: BeamPageType.scaleTransition,
-                    child: FutureBuilder<dynamic>(
-                      future: formElementModelApiService
-                          .getFormElementModelsById(int.parse(formId)),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState ==
-                            ConnectionState.waiting) {
-                          return const Scaffold(
-                              body:
-                                  CircularProgressIndicator()); // Display a loading indicator if needed
-                        }
-                        if (snapshot.data!.isEmpty) {
-                          return EditFormPage(
-                            existedFormElements: [],
-                            formId: int.parse(formId),
-                          );
-                        } else if (snapshot.hasError) {
-                          return Text('Error: ${snapshot.error}');
-                        } else if (!snapshot.hasData) {
-                          return const Text('No data available.');
-                        } else {
-                          return EditFormPage(
-                            existedFormElements: snapshot.data!,
-                            formId: int.parse(formId),
-                          );
-                        }
-                      },
-                    ))
-                : AdaptiveScaffold(
+            if (userLogined == 'Admin') {
+              return BeamPage(
+                  key: const ValueKey("edit-form"),
+                  title: 'فرم آنلاین',
+                  popToNamed: '/',
+                  type: BeamPageType.scaleTransition,
+                  child: FutureBuilder<dynamic>(
+                    future: formElementModelApiService
+                        .getFormElementModelsById(int.parse(formId)),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Scaffold(
+                            body:
+                                CircularProgressIndicator()); // Display a loading indicator if needed
+                      }
+                      if (snapshot.data!.isEmpty) {
+                        return EditFormPage(
+                          existedFormElements: [],
+                          formId: int.parse(formId),
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else if (!snapshot.hasData) {
+                        return const Text('No data available.');
+                      } else {
+                        return EditFormPage(
+                          existedFormElements: snapshot.data!,
+                          formId: int.parse(formId),
+                        );
+                      }
+                    },
+                  ));
+            } else if (userLogined == 'User') {
+              return const BeamPage(child: NotFoundPage());
+            }
+            return BeamPage(
+                child: AdaptiveScaffold(
                     full: LoginPageFullView(
                       welcomeImage: welcomeImage,
                       afterLogin: '/edit-form/$formId',
                     ),
                     compact: LoginPageCompactView(
                         welcomeImage: welcomeImage,
-                        afterLogin: '/edit-form/$formId'));
+                        afterLogin: '/edit-form/$formId')));
           },
           '/form/:formId': (context, state, data) {
             // Take the path parameter of interest from BeamState
@@ -150,14 +162,15 @@ class FormGeneratorApp extends StatelessWidget {
                         }
                       },
                     ))
-                : AdaptiveScaffold(
-                    full: LoginPageFullView(
-                      welcomeImage: welcomeImage,
-                      afterLogin: '/form/$formId',
-                    ),
-                    compact: LoginPageCompactView(
-                        welcomeImage: welcomeImage,
-                        afterLogin: '/form/$formId'));
+                : BeamPage(
+                    child: AdaptiveScaffold(
+                        full: LoginPageFullView(
+                          welcomeImage: welcomeImage,
+                          afterLogin: '/form/$formId',
+                        ),
+                        compact: LoginPageCompactView(
+                            welcomeImage: welcomeImage,
+                            afterLogin: '/form/$formId')));
           },
           '/proccess-request': (context, state, data) {
             return BeamPage(
