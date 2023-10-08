@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'dart:html' as html;
+import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:form_generator/models/form_model.dart';
 
@@ -103,6 +104,36 @@ class FormApiService {
       return response.data;
     } catch (e) {
       throw Exception('Error: $e');
+    }
+  }
+
+  Future<void> convertFormDataToCsv(int formId) async {
+    final dio = Dio();
+
+    try {
+      final response = await dio.post(
+        '$_baseUrl/ConvertFormDataToCsv?formId=$formId',
+        options: Options(
+          responseType: ResponseType.bytes,
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        final csvBytes = response.data as List<int>;
+        final blob = html.Blob([Uint8List.fromList(csvBytes)]);
+
+        final url = html.Url.createObjectUrlFromBlob(blob);
+        final anchor = html.AnchorElement(href: url)
+          ..target = 'download'
+          ..download = 'FormData.csv'
+          ..click(); // Trigger a click event to start the download
+
+        html.Url.revokeObjectUrl(url); // Clean up the URL object
+      } else {
+        print('Request failed with status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: $e');
     }
   }
 }
