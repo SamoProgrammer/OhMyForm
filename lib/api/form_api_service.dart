@@ -91,7 +91,7 @@ class FormApiService {
     }
   }
 
-  Future<bool> isUserAnswerdForm(String username, int formId) async {
+  Future<dynamic> isUserAnswerdForm(String username, int formId) async {
     try {
       final response = await _dio.post(
         '$_baseUrl/IsUserAnswerdForm',
@@ -101,7 +101,7 @@ class FormApiService {
         },
       );
 
-      return response.data;
+      return response.data.toString();
     } catch (e) {
       throw Exception('Error: $e');
     }
