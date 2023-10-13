@@ -25,6 +25,7 @@ class _FormFieldEditDialogWidgetState extends State<FormFieldEditDialogWidget> {
   void initState() {
     tempElement = widget.element;
     txtLabelController.text = widget.element.label;
+    txtOptionsController.text = widget.element.options;
     if (widget.element.type == FormElementType.radioButton.index) {
       isRadioButton = true;
     }
