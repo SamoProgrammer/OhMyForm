@@ -26,7 +26,7 @@ void main() async {
 
 class FormGeneratorApp extends StatelessWidget {
   String userLogined;
-  bool isUserAnswerdForm = false;
+  String isUserAnswerdForm = "false";
   FormGeneratorApp({super.key, required this.userLogined});
 
   void reCheckUserLogin() async {
