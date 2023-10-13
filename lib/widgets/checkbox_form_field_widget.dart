@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:getwidget/getwidget.dart';
 
 class CheckBoxFormFieldWidget extends StatefulWidget {
   final String lable;
@@ -11,21 +12,30 @@ class CheckBoxFormFieldWidget extends StatefulWidget {
 }
 
 class _LongTextFormFieldWidgetState extends State<CheckBoxFormFieldWidget> {
+  bool checkedValue = false;
   @override
   Widget build(BuildContext context) {
-    bool checkedValue = false;
     return Row(
       children: [
-        Text(widget.lable),
-        Expanded(
-          child: Checkbox(
-            value: checkedValue,
-            onChanged: (newValue) {
-              setState(() {
-                checkedValue = newValue!;
-                widget.controller!.text = checkedValue.toString();
-              });
-            },
+        GFCheckbox(
+          size: GFSize.MEDIUM,
+          activeBgColor: Colors.red,
+          type: GFCheckboxType.square,
+          inactiveIcon: null,
+          value: checkedValue,
+          onChanged: (newValue) {
+            setState(() {
+              checkedValue = newValue;
+              widget.controller!.text = checkedValue.toString();
+              print(newValue);
+            });
+          },
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: Text(
+            widget.lable,
+            style: const TextStyle(fontSize: 20),
           ),
         )
       ],
