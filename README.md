@@ -4,7 +4,7 @@
 a flutter web application for making forms with various types of question.
 
 # API
-in case you needed the API for running project on your server. this the API [link](https://github.com/SamoProgrammer/OhMyFormAPI)
+in case you needed the API for running project on your server. this is the API [link](https://github.com/SamoProgrammer/OhMyFormAPI)
 
 ## Features:
 ### 1- Making forms with various types of questions and make a unique link for each of them
